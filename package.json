@@ -1,0 +1,37 @@
+{
+  "name": "aplikasileax",
+  "private": true,
+  "main": "main.cjs",
+  "version": "0.0.0",
+  "type": "module",
+"scripts": {
+    "dev": "concurrently \"npm run watch\" \"npm run serve\"",
+    "watch": "vite build --watch",
+    "serve": "wait-on dist/index.html && npm run start",
+    "build": "vite build",
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.3",
+    "concurrently": "^9.2.1",
+    "electron": "^38.2.0",
+    "electron-builder": "^26.0.12",
+    "eslint": "^9.36.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.4.0",
+    "vite": "npm:rolldown-vite@7.1.12",
+    "wait-on": "^9.0.1"
+  },
+  "overrides": {
+    "vite": "npm:rolldown-vite@7.1.12"
+  }
+}

@@ -1,0 +1,196 @@
+/* TEMA CYBERPUNK RAPI UNTUK LEAD-X - V2.1 */
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&display=swap');
+
+:root {
+  --background-color: #0d0221;
+  --panel-background: rgba(26, 10, 56, 0.65);
+  --border-color: rgba(155, 93, 229, 0.4);
+  --text-primary: #f0f0f0;
+  --text-secondary: #a7a2c2;
+  --accent-green: #00f5d4;
+  --accent-magenta: #ff00ff;
+  --accent-purple: #9b5de5;
+  --glow-shadow-green: 0 0 8px var(--accent-green);
+  --glow-shadow-magenta: 0 0 8px var(--accent-magenta);
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    font-family: 'Chakra Petch', sans-serif;
+    margin: 0;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.app-container { display: flex; height: 100vh; }
+
+.panel {
+    padding: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--panel-background);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease-in-out;
+}
+
+/* --- Panel 1: Command Center --- */
+.command-center {
+    width: 25%;
+    min-width: 350px;
+    border-right: 1px solid var(--border-color);
+    height: 100vh; 
+}
+.panel-header { margin-bottom: 24px; flex-shrink: 0; }
+.title { color: var(--accent-green); text-shadow: var(--glow-shadow-green); margin: 0; }
+
+.panel-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-grow: 1;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.input-label { font-size: 12px; color: var(--text-secondary); margin-bottom: -8px; text-transform: uppercase; }
+textarea {
+    background-color: rgba(13, 2, 33, 0.8); color: var(--text-primary); border: 1px solid var(--border-color);
+    padding: 12px; border-radius: 0; font-family: inherit; resize: none;
+}
+textarea:focus { box-shadow: var(--glow-shadow-magenta); outline: none; }
+
+.scan-button {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px; border: 1px solid var(--accent-purple); border-radius: 0; background-color: var(--accent-purple);
+    color: #fff; font-weight: 700; font-size: 16px; cursor: pointer; text-shadow: 0 0 4px #000;
+    transition: all 0.2s;
+}
+.scan-button:hover { background-color: #000; color: var(--accent-purple); }
+.scan-button.scanning { animation: pulse 1.5s infinite; }
+.scan-button:disabled { background-color: #333; border-color: #555; cursor: not-allowed; animation: none; }
+
+.stats-container { margin-top: 16px; }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; text-align: center; }
+.stat-item { background-color: var(--background-color); border: 1px solid var(--border-color); padding: 12px; font-size: 12px; text-transform: uppercase; }
+.stat-item span { display: block; font-size: 22px; font-weight: 700; color: var(--accent-green); text-shadow: var(--glow-shadow-green); }
+
+.log-console {
+    border: 1px solid var(--border-color); padding: 15px; font-family: 'Courier New', Courier, monospace;
+    min-height: 120px;
+    display: flex; flex-direction: column;
+}
+.log-content { overflow-y: auto; word-wrap: break-word; font-size: 12px; color: var(--text-secondary); flex-grow: 1; }
+
+/* --- Panel 2: Data Grid --- */
+.data-grid { width: 45%; flex-grow: 1; padding-top: 32px; }
+.table-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.export-button {
+    display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 0;
+    border: 1px solid var(--accent-green); background-color: transparent; color: var(--accent-green);
+    font-weight: 500; cursor: pointer; transition: all 0.2s;
+}
+.export-button:hover { background-color: var(--accent-green); color: #000; text-shadow: none; box-shadow: var(--glow-shadow-green); }
+.export-button:disabled { opacity: 0.4; cursor: not-allowed; }
+.export-feedback { color: var(--accent-green); font-size: 12px; }
+.filter-toggle { display: flex; align-items: center; gap: 8px; }
+#new-filter { accent-color: var(--accent-magenta); }
+
+.table-container { width: 100%; height: calc(100% - 60px); overflow-y: auto; border: 1px solid var(--border-color); }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border-color); }
+th { background-color: var(--border-color); font-size: 12px; text-transform: uppercase; color: var(--text-secondary); position: sticky; top: 0; }
+tbody tr { transition: background-color 0.2s, color 0.2s; }
+tbody tr:hover { background-color: var(--accent-purple); color: #fff; }
+tbody tr.selected { background-color: var(--accent-magenta); color: white; }
+.new-badge { color: var(--accent-green); font-weight: 700; text-shadow: var(--glow-shadow-green); }
+.table-message { text-align: center; padding: 40px; color: var(--text-secondary); }
+
+/* --- Panel 3: Prospect Dossier --- */
+.prospect-dossier { width: 30%; min-width: 400px; border-left: 1px solid var(--border-color); overflow-y: auto; }
+.prospect-dossier:not(.open) { width: 0; padding: 32px 0; border-left: none; opacity: 0; }
+.dossier-title { margin-top: 0; color: var(--accent-purple); }
+.close-button { float: right; background: none; border: none; color: #888; font-size: 24px; cursor: pointer; }
+.dossier-item { margin-bottom: 24px; }
+.dossier-item strong { display: block; margin-bottom: 8px; color: var(--text-secondary); font-size: 12px; text-transform: uppercase; }
+.dossier-item p { margin: 0; word-wrap: break-word; }
+.dossier-item a { color: var(--accent-magenta); text-decoration: none; }
+.dossier-item a:hover { text-decoration: underline; }
+
+@keyframes pulse { 50% { opacity: 0.8; } }
+/* Scrollbar Styling */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--background-color); }
+::-webkit-scrollbar-thumb { background: var(--border-color); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-magenta); }
+
+/* ... (semua kode CSS dari versi Cyberpunk Rapi sebelumnya tetap sama) ... */
+
+/* TAMBAHAN STYLING UNTUK TOMBOL STOP & KOLOM EMAIL */
+
+.scan-button.stop-button {
+    background-color: var(--accent-magenta); /* Warna magenta untuk tombol stop */
+    border-color: var(--accent-magenta);
+}
+.scan-button.stop-button:hover {
+    background-color: #000;
+    color: var(--accent-magenta);
+}
+
+.email-cell {
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 13px;
+    max-width: 150px; /* Mencegah email panjang merusak tabel */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ... (sisa kode CSS dari versi Cyberpunk Rapi sebelumnya tetap sama) ... */
+
+/* ... (semua kode CSS dari versi Cyberpunk Rapi sebelumnya tetap sama) ... */
+
+/* --- TAMBAHAN & PENYESUAIAN UNTUK KOLOM BARU --- */
+
+.table-container th, .table-container td {
+    /* Atur agar teks yang panjang tidak merusak layout */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* Lebar maksimum untuk kolom nama */
+}
+
+.table-container th:nth-child(2),
+.table-container td:nth-child(2) {
+    max-width: 250px; /* Beri ruang lebih untuk nama bisnis */
+}
+
+.email-cell {
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 13px;
+    max-width: 180px; /* Lebar maksimum untuk kolom email */
+}
+
+.website-cell a {
+    color: var(--accent-magenta);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.website-cell a:hover {
+    text-decoration: underline;
+    text-shadow: 0 0 5px var(--accent-magenta);
+}
+
+.scan-button.stop-button {
+    background-color: var(--accent-magenta);
+    border-color: var(--accent-magenta);
+}
+.scan-button.stop-button:hover {
+    background-color: #000;
+    color: var(--accent-magenta);
+}
